@@ -1,0 +1,10 @@
+#!bin/bash
+
+# Where is the AWS CLI located?
+alias aws-location='which aws'
+
+# What version of AWS CLI am I running on?
+alias aws-version='aws --version'
+
+# Connect to aws
+alias aws-login='aws sso login'

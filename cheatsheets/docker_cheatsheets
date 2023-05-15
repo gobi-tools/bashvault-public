@@ -1,0 +1,18 @@
+#!bin/bash
+
+# Remove all data from Docker.
+alias docker-prune='docker system prune'
+
+# See all docker images
+alias docker-images='docker images'
+
+# See all running containers
+alias docker-containers='docker ps'
+
+# kill a container
+alias docker-kill='docker kill $1'
+
+# kill all containers specified by docker compose
+# must be in a folder that has a 'docker-compose.yml' file
+# or specify the file manually
+alias docker-kill-componse='docker-compose rm -svf'

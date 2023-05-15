@@ -1,4 +1,4 @@
-![main-loog](res/main-logo-github.png)
+![main-logo](res/main-logo-github.png)
 
 This is the public Git repository for [BashVault](https://bashvault.app). 
 
@@ -23,6 +23,8 @@ In addition, it's going to show you all of the aliases, functions and variables 
 Lastly, it can read your terminal history and help your find what you're looking for easily.
 
 It's also safe and secure. Your data does not leave your machine and the app does not track you.
+
+![main-app-screen](res/main-app-screen.jpg)
 
 ## More info
 

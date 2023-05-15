@@ -28,5 +28,7 @@ It's also safe and secure. Your data does not leave your machine and the app doe
 
 You can find available cheatsheets [here](https://github.com/gobi-tools/bashvault-public/tree/main/cheatsheets).
 
-## Support
+## Bug Reports & Features
+
+You can use the [GitHub Issue tracker](https://github.com/gobi-tools/bashvault-public/issues) to inform us of any bugs or propose new features.
 

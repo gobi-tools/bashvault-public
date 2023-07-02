@@ -1,18 +1,44 @@
-#!bin/bash
+#!/bin/bash
 
 # Remove all data from Docker.
-alias docker-prune='docker system prune'
+alias docker_prune='docker system prune'
 
 # See all docker images
-alias docker-images='docker images'
+alias docker_images='docker images'
+
+# Remove all images from your machine
+alias docker_images_delete='docker rmi -f $(docker images -aq)'
 
 # See all running containers
-alias docker-containers='docker ps'
+alias docker_containers='docker ps'
+
+# See all running & non running containers
+alias docker_containers_all='docker ps -a'
+
+# get all logs from a running or terminated container
+#  $1 = the container ID
+docker_container_logs() {
+  docker container logs $1
+}
+
+# start a terminated container
+#  $1 = the container ID
+docker_container_start() {
+  docker container start $1
+}
 
 # kill a container
-alias docker-kill='docker kill $1'
+docker_kill() {
+  docker kill $1
+}
+
+# Build a docker image. Must be run in a folder containing a 'Dockerfile'.
+# Must specify an image name as a param. 
+docker_build() {
+  docker build -t $1 .
+}
 
 # kill all containers specified by docker compose
 # must be in a folder that has a 'docker-compose.yml' file
 # or specify the file manually
-alias docker-kill-componse='docker-compose rm -svf'
+alias docker_kill_componse='docker-compose rm -svf'

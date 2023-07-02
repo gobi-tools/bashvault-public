@@ -1,39 +1,53 @@
-#!bin/bash
+#!/bin/bash
 
 # Get Helm deployment history of the current app/namespace
 # in the current Context you're in
 # TOTO: improve this so it's only a script
-alias helm-history='kubens -c | xargs -I{} helm history {}'
+alias helm_history='kubens -c | xargs -I{} helm history {}'
 
 # Rolls back a Helm update.
 # where $1 is the app/namespace we want to see the history for
 # and $2 is the version we want to rollback to
 # TODO: improve this so it only needs one param
-alias helm-rollback='helm rollback $1 $2'
+helm_rollback() {
+  helm rollback $1 $2
+}
 
 # Run a dry run Helm Upgrade
 # $1 the app/namespace to upgrade
 # $2 the file to use when upgrading, like 'new-staging.yaml' or 'staging.yaml'
-alias helm-upgrade-dry='helm diff upgrade $1 -f $2 .'
+helm_upgrade_dry() {
+  helm diff upgrade $1 -f $2 .
+}
 
 # Run an actual Helm Upgrade
 # $1 the app/namespace to upgrade
 # $2 the file to use when upgrading
-alias helm-upgrade='helm upgrade $1 -f $2 .'
+helm_upgrade() {
+  helm upgrade $1 -f $2 .
+}
 
 # Upgrade helm dependencies
-alias helm-up='helm dep up'
+alias helm_up='helm dep up'
 
 # Get values for helm
 # - $1 = the app
+# Note: must be in the $PROJECT/helm folder
 # Note: usually do a 'helm dep up' beforehand
-alias helm-get-values='helm get values $1 > current.yaml'
+helm_get_values() {
+  helm get values $1 > current.yaml
+}
 
 # uninstall a helm chart + values 
 # - $1 = the name of the namespace
-alias helm-uninstall='helm uninstall $1'
+helm_uninstall() {
+  helm uninstall $1
+}
 
 # install a new helm chart, given some custom values
 # - $1 = the name of the namespace
 # - $2 = the name of the custom YAML values file
-alias helm-install='helm install $1 -f $2 ./'
+# Note: should be run in the /helm folder for ease of use
+helm_install() {
+  helm install $1 -f $2 ./
+}

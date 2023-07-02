@@ -1,107 +1,135 @@
-#!bin/bash
+#!/bin/bash
 
 # More info here:
 # https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
 # get all configured clusters
-alias k8s-config='kubectl config view'
+alias k8s_config='kubectl config view'
 
 # A context is the connection to a specific cluster (username/apiserver host) used by kubectl. 
 # You can manage multiple clusters that way.
 #
 # get all contexts
-alias k8s-context-all='kubectl config get-contexts'
+alias k8s_context_all='kubectl config get-contexts'
 
 # get current context
-alias k8s-context-current='kubectl config current-context'
+alias k8s_context_current='kubectl config current-context'
 
 # select context
-alias k8s-context-select='kubectx'
+alias k8s_context_select='kubectx'
 
 # get all nodes
-alias k8s-node='kubectl get node'
+alias k8s_node='kubectl get node'
 
 # Namespace is a logical partition inside a specific cluster to manage resources and constraints.
 #
 # get all namespaces in context
-alias k8s-namespace-all='kubectl get namespace'
+alias k8s_namespace_all='kubectl get namespace'
 
 # select namespace in context
-alias k8s-namespace-select='kubens'
+alias k8s_namespace_select='kubens'
 
 # see the current namespace
-alias k8s-namespace-current='kubens -c'
+alias k8s_namespace_current='kubens -c'
 
 # see all secrets in a namespace
-# $1 - is the namespace
-alias k8s-namespace-secrets='kubectl get externalsecret.external-secrets.io -n $1'
+# $1 - is the namespace 
+k8s_namespace_secrets() {
+  kubectl get externalsecret.external-secrets.io -n $1
+}
 
 # describe the secrets 
 # $1 = one of the secret names from running "k8s-namespace-secrets"
-alias k8s-describe-secret='kubectl describe externalsecret.external-secrets.io/$1'
+k8s_describe_secret() {
+  kubectl describe externalsecret.external-secrets.io/$1
+}
 
 # get all environment variables in a pod
 # $1 = the name the pod
-alias k8s-get-secrets='kubectl exec -it $1 -- env'
+k8s_get_secrets() {
+  kubectl exec -it $1 -- env
+}
 
 # get all existing pods
-alias k8s-pod-all='kubectl get pods -A'
+alias k8s_pod_all='kubectl get pods -A'
 
 # get all pods in this namespace
-alias k8s-pod='kubectl get pods'
+alias k8s_pod='kubectl get pods'
 
 # Watch pods status in a Context & App
-alias k8s-pod-status='watch kubectl get pods'
+alias k8s_pod_status='watch kubectl get pods'
 
 # get pod HPA info
-alias k8s-pod-hpa='kubectl describe hpa'
+alias k8s_pod_hpa='kubectl describe hpa'
 
 # describe a pod
-alias k8s-pod-describe='kubectl describe pod $1'
+k8s_pod_describe() {
+  kubectl describe pod $1
+}
 
 # Deletes a POD in K8S Namespace
 # $1 is the POD we want to delete
-alias k8s-pod-delete='kubectl delete pod $1'
+k8s_pod_delete() {
+  kubectl delete pod $1
+}
 
 # Fully handles connecting to a pod in an executable environment. Must first specify the K8S context & app you're in.
 # $1 is the POD we want to connect to
-alias k8s-pod-connect='kubectl exec --stdin --tty $1 -- /bin/bash'
+k8s_pod_connect() {
+  kubectl exec --stdin --tty $1 -- /bin/bash
+}
 
 # Fully handles getting logs from a pod. Must first specify the K8S context and app you're in.
 # where $1 is the pod name we want to log
-alias k8s-pod-logs='kubectl logs -f $1'
+k8s_pod_logs() {
+  kubectl logs -f $1
+}
 
 # Handles gettings logs from all pods with a given name or prefix
 # Must first specify the K8S context and namespace you're in. 
 #   $1 = the general name of the pod group you want to log
-alias k8s-all-pods-logs='kubectl logs -l app=$1'
+k8s_all_pods_logs() {
+  kubectl logs -l app=$1
+}
 
 # Handles gettings all logs matching a certain string, from all pods with a given name or prefix
 # Must first spcieify the K8S context and namespace you're in
 #   $1 = the general name of the pod group you want to log
 #   $2 = filter string 
-alias k8s-all-pods-specific-logs='kubectl logs -l app=$1 | grep "$2"'
+k8s_all_pods_specific_logs() {
+  kubectl logs -l app=$1 | grep "$2"
+}
 
 # get deployments in a namespace
 alias k8s-deployment-all='kubectl get deployments'
 
 # describe deployment
-alias k8s-deployment-describe='kubectl describe deployment $1'
+k8s_deployment_describe() {
+  kubectl describe deployment $1
+}
 
 # apply deployment from file
-alias k8s-deployment-create='kubectl apply -f $1'
+k8s_deployment_create() {
+  kubectl apply -f $1
+}
 
 # delete a deployment
-alias k8s-deployment-delete='kubectl delete deployment $1'
+k8s_deployment_delete() {
+  kubectl delete deployment $1
+}
 
 # get all services
 alias k8s-service='kubectl get service'
 
 # create service
-alias k8s-service-create='kubectl expose deployment $1 --type=NodePort --port=$2'
+k8s_service_create() {
+  kubectl expose deployment $1 --type=NodePort --port=$2
+}
 
 # delete service
-alias k8s-service-delete='kubectl delete service $1'
+k8s_service_delete() {
+  kubectl delete service $1
+}
 
 # get events
-alias k8s-events-all='kubectl get events'
+alias k8s_events_all='kubectl get events'
